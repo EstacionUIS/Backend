@@ -8,7 +8,7 @@ require('dotenv').config(); // Load environment variables from .env
 
 // Set whitelist
 const whitelist = [
-    `http://localhost:${process.env.FRONTEND_PORT}`,
+    process.env.FRONT_URL,
 ];
 
 const corsOptions = {
@@ -68,7 +68,7 @@ app.use((err, req, res, next) => {
     }
 });
 
-const port = process.env.BACKEND_PORT || 3000; 
+const port = process.env.PORT || 3000; 
 
 app.listen(port, () => {
     console.log(`Proxy server listening at http://localhost:${port}`);
