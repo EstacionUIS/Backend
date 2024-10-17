@@ -67,9 +67,3 @@ app.use((err, req, res, next) => {
         next(err); // Let other middleware handle other errors
     }
 });
-
-const port = process.env.PORT || 3000; 
-
-app.listen(port, () => {
-    console.log(`Proxy server listening at http://localhost:${port}`);
-});
