@@ -67,3 +67,9 @@ app.use((err, req, res, next) => {
         next(err); // Let other middleware handle other errors
     }
 });
+
+const port = process.env.PORT; 
+
+app.listen(port, () => {
+    console.log(`Proxy server listening at port: ${port}`);
+});
