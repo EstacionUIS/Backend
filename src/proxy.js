@@ -31,32 +31,35 @@ app.use(
 
 app.get('/api/:type', async (req, res) => {
     const apiType = req.params.type; // Observations, stations, jobs, satellites
-    const stationId = req.query.stationId; // Ground station Id
+    const id = req.query.id; // Ground station Id or Satellite Id
 
-    const url = `${process.env.API_URL}/${apiType}`;
-    
     let apiUrl = ''; 
     let headers = {};
 
     try {
 
-        if(apiType == 'observations') {
-            apiUrl = `${url}/?format=json&ground_station=${stationId}`;
-        }
-        else if(apiType == 'stations'){
-            apiUrl = `${url}/?format=json&id=${stationId}`;
-        } 
-        else if(apiType == 'satellites') {
-            apiUrl = `${url}/${stationId}/?format=json`; 
+        if (apiType == 'satellites') {
+
+            apiUrl = `${process.env.DB_URL}/api/satellites/${id}/?format=json`; 
+
             headers = { 
                 'accept': "application/json",
-                'Authorization': `Token ${process.env.API_KEY}`,
+                'Authorization': `${process.env.API_KEY}`,
                 'Cookie': `sessionid=${process.env.API_KEY}` // Add Cookie header
             };
+        } else {
+            
+            apiUrl = `${process.env.API_URL}/api/${apiType}`;
+
+            if(apiType == 'observations') {
+                apiUrl = `${url}/?format=json&ground_station=${id}`;
+            } else {
+                apiUrl = `${url}/?format=json&id=${id}`;
+            }
         }
 
         // Fetch data
-        const response = await axios.get(apiUrl, { headers: headers });
+        const response = await axios.get(apiUrl, { headers });
         const data = response.data;
 
         res.json(data);
