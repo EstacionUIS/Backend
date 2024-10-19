@@ -35,18 +35,24 @@ app.get('/api/:type', async (req, res) => {
 
     const url = `${process.env.API_URL}/${apiType}/?format=json`;
     
+    let apiUrl = ''; 
+    let headers = {};
+
     try {
-        apiUrl = '';
 
         if(apiType == 'observations') {
             apiUrl = `${url}&ground_station=${stationId}`;
         }
-        else {
+        else if(apiType == 'station'){
             apiUrl = `${url}&id=${stationId}`;
+        } else // satellites
+        {
+            apiUrl = url;
+            headers = { 'Authorization': `Token ${process.env.API_KEY}`};
         }
 
         // Fetch data
-        const response = await axios.get(apiUrl);
+        const response = await axios.get(apiUrl, { headers: headers });
         const data = response.data;
 
         res.json(data);
