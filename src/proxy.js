@@ -43,14 +43,15 @@ app.get('/api/:type', async (req, res) => {
         if(apiType == 'observations') {
             apiUrl = `${url}/?format=json&ground_station=${stationId}`;
         }
-        else if(apiType == 'station'){
+        else if(apiType == 'stations'){
             apiUrl = `${url}/?format=json&id=${stationId}`;
-        } else if(apiType == 'satellites') 
-        {
-            apiUrl = `${url}/${stationId}/format=json`;
+        } 
+        else if(apiType == 'satellites') {
+            apiUrl = `${url}/${stationId}/?format=json`; 
             headers = { 
                 'accept': "application/json",
-                'Authorization': `Token ${process.env.API_KEY}` 
+                'Authorization': `Token ${process.env.API_KEY}`,
+                'Cookie': `sessionid=${process.env.API_KEY}` // Add Cookie header
             };
         }
 
