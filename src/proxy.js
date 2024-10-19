@@ -48,13 +48,13 @@ app.get('/api/:type', async (req, res) => {
                 'Cookie': `sessionid=${process.env.API_KEY}` // Add Cookie header
             };
         } else {
-            
+
             apiUrl = `${process.env.API_URL}/api/${apiType}`;
 
             if(apiType == 'observations') {
-                apiUrl = `${url}/?format=json&ground_station=${id}`;
+                apiUrl = `${apiUrl}/?format=json&ground_station=${id}`;
             } else {
-                apiUrl = `${url}/?format=json&id=${id}`;
+                apiUrl = `${apiUrl}/?format=json&id=${id}`;
             }
         }
 
