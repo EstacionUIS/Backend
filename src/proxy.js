@@ -33,7 +33,7 @@ app.get('/api/:type', async (req, res) => {
     const apiType = req.params.type; // Observations, stations, jobs
     const stationId = req.query.stationId; // Ground station Id
 
-    const url = `${process.env.API_URL}/${apiType}/?format=json`;
+    const url = `${process.env.API_URL}/${apiType}`;
     
     let apiUrl = ''; 
     let headers = {};
@@ -41,14 +41,17 @@ app.get('/api/:type', async (req, res) => {
     try {
 
         if(apiType == 'observations') {
-            apiUrl = `${url}&ground_station=${stationId}`;
+            apiUrl = `${url}/?format=json&ground_station=${stationId}`;
         }
         else if(apiType == 'station'){
-            apiUrl = `${url}&id=${stationId}`;
-        } else // satellites
+            apiUrl = `${url}/?format=json&id=${stationId}`;
+        } else if(apiType == 'satellites') 
         {
-            apiUrl = url;
-            headers = { 'Authorization': `Token ${process.env.API_KEY}`};
+            apiUrl = `${url}/${stationId}/format=json`;
+            headers = { 
+                'accept': "application/json",
+                'Authorization': `Token ${process.env.API_KEY}` 
+            };
         }
 
         // Fetch data
