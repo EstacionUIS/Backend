@@ -30,7 +30,7 @@ app.use(
 );
 
 app.get('/api/:type', async (req, res) => {
-    const apiType = req.params.type; // Observations, stations, jobs
+    const apiType = req.params.type; // Observations, stations, jobs, satellites
     const stationId = req.query.stationId; // Ground station Id
 
     const url = `${process.env.API_URL}/${apiType}`;
