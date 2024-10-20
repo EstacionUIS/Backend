@@ -40,10 +40,10 @@ app.get('/api/:type', async (req, res) => {
 
         if (apiType == 'satellites') {
 
-            apiUrl = `${process.env.DB_URL}/api/satellites/${id}/?format=json-ld`; 
+            apiUrl = `${process.env.DB_URL}/api/satellites/${id}/?format=json`; 
 
             headers = { 
-                'accept': "application/ld+json",
+                'accept': "application/json",
                 'Authorization': `${process.env.API_KEY}`,
                 'Cookie': `sessionid=${process.env.API_KEY}` // Add Cookie header
             };
