@@ -42,11 +42,11 @@ app.get('/api/:type', async (req, res) => {
 
             apiUrl = `${process.env.DB_URL}/api/satellites/?format=json&norad_cat_id=${id}`; 
 
-            /*headers = { 
+            headers = { 
                 'accept': "application/json",
                 'Authorization': `${process.env.API_KEY}`,
                 'Cookie': `sessionid=${process.env.API_KEY}` // Add Cookie header
-            };*/
+            };
         } else {
 
             apiUrl = `${process.env.API_URL}/api/${apiType}`;
@@ -59,7 +59,7 @@ app.get('/api/:type', async (req, res) => {
         }
 
         // Fetch data
-        const response = await axios.get(apiUrl);
+        const response = await axios.get(apiUrl, { headers });
         const data = response.data;
 
         res.json(data);
