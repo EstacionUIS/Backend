@@ -40,10 +40,10 @@ app.get('/api/:type', async (req, res) => {
 
         if (apiType == 'satellites') {
 
-            apiUrl = `${process.env.DB_URL}/api/satellites/?format=json&norad_cat_id=${id}`; 
+            apiUrl = `${process.env.DB_URL}/api/satellites/${id}/?format=json`; 
 
             headers = { 
-                'accept': "application/json",
+                'accept': "application/ld+json",
                 'Authorization': `${process.env.API_KEY}`,
                 'Cookie': `sessionid=${process.env.API_KEY}` // Add Cookie header
             };
