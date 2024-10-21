@@ -86,6 +86,9 @@ app.get('/satellite/description/:type', async (req, res) => {
         const response = await fetch(url);
 
         const html = await response.text;
+
+        console.log(html);
+
         const $ = cheerio.load(html);
 
         const descriptionText = $('.card.card-info .card-body p').text();
