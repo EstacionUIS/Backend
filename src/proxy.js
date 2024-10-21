@@ -74,7 +74,7 @@ app.get('/api/:type', async (req, res) => {
     }
 });
 
-app.get('/satellite/description/:type', async (req, res) => {
+app.get('/satellite/:type', async (req, res) => {
     
     try {
         const id = req.query.id;
@@ -82,8 +82,8 @@ app.get('/satellite/description/:type', async (req, res) => {
 
         const url = `${process.env.DB_URL}/satellite/${id}`;
 
-        console.log(id);
-        console.log(d);
+        console.log(`query id = ${id}`);
+        console.log(`params type = ${d}`);
 
         const response = await fetch(url);
 
