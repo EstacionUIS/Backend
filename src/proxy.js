@@ -80,11 +80,10 @@ app.get('/satellite/:type', async (req, res) => {
         const id = req.query.id;
         const url = `${process.env.DB_URL}/satellite/${id}`;
 
-        const response = await fetch(url);
-        const html = await response.text;
-
         console.log(url);
 
+        const response = await fetch(url);
+        const html = await response.text;
         const $ = cheerio.load(html);
 
         const descriptionText = $('.card.card-info .card-body p').text();
