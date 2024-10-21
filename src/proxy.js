@@ -78,18 +78,12 @@ app.get('/satellite/:type', async (req, res) => {
     
     try {
         const id = req.query.id;
-        const d = req.params.type;
-
         const url = `${process.env.DB_URL}/satellite/${id}`;
 
-        console.log(`query id = ${id}`);
-        console.log(`params type = ${d}`);
-
         const response = await fetch(url);
-
         const html = await response.text;
 
-        console.log(html);
+        console.log(url);
 
         const $ = cheerio.load(html);
 
