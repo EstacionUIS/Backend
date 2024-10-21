@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+const cheerio = require('cheerio');
+
 const app = express();
 
 // Set env
@@ -43,7 +45,7 @@ app.get('/api/:type', async (req, res) => {
             apiUrl = `${process.env.DB_URL}/api/satellites/${id}/?format=json`; 
 
             headers = { 
-                'accept': "application/ld+json",
+                'accept': "application/json",
                 'Authorization': `${process.env.API_KEY}`,
                 'Cookie': `sessionid=${process.env.API_KEY}` // Add Cookie header
             };
@@ -69,6 +71,28 @@ app.get('/api/:type', async (req, res) => {
         console.log(msg);
 
         res.status(500).json({ error: 'Failed to fetch data from the API'});   
+    }
+});
+
+app.get('/satellite/:type/description', async (req, res) => {
+    
+    try {
+        const id = req.query.id;
+
+        const url = `${DB_URL}/satellite/${id}`;
+        const response = await fetch(url);
+
+        const html = await response.text;
+        const $ = cheerio.load(html);
+
+        const descriptionText = $('.card.card-info .card-body p').text();
+        res.json({ "Description": descriptionText });
+
+    } catch (error) {
+        msg = `Error fetching data: ${error}`;
+        console.log(msg);
+
+        res.status(500).json({ error: 'Failed to fetch html text'});   
     }
 });
 
