@@ -74,7 +74,7 @@ app.get('/api/:type', async (req, res) => {
     }
 });
 
-app.get('/satellite/description:type', async (req, res) => {
+app.get('/satellite/description/:type', async (req, res) => {
     
     try {
         const id = req.query.id;
