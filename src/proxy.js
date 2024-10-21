@@ -80,6 +80,9 @@ app.get('/satellite/description/:type', async (req, res) => {
         const id = req.query.id;
 
         const url = `${process.env.DB_URL}/satellite/${id}`;
+
+        console.log(url);
+
         const response = await fetch(url);
 
         const html = await response.text;
