@@ -42,7 +42,7 @@ app.get('/api/:type', async (req, res) => {
 
         if (apiType == 'satellites') {
 
-            apiUrl = `${process.env.DB_URL}/api/satellites/${id}/?format=json`; 
+            apiUrl = `${process.env.DB_URL}/api/satellites/?format=json&norad_cat_id=${id}`; 
 
             headers = { 
                 'accept': "application/json",
